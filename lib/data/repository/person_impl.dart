@@ -21,7 +21,7 @@ class RepositoryPersonImpl extends RepositoryPerson{
   }
 
   @override
-  Future<People?> listPeople()async{
+  Future<People?> listPeople() async{
     List<Person?> people = [];
     Database db = await sqlConnection.createConnection();
     ResultSet? resultado = db.select("Select * from Person");
@@ -41,12 +41,13 @@ class RepositoryPersonImpl extends RepositoryPerson{
   }
 
   @override
-  Future<void> registerPerson(Person pessoa)async {
+  Future<int> registerPerson(Person pessoa)async {
 
     Database db = await sqlConnection.createConnection();   
-    db.prepare("insert into Person(name, email, telefone, birthDate) values(?, ?, ?)");
+    db.prepare("insert into Person(name, email, telefone, birthDate) values(?,?, ?, ?)");
     db.execute('[${pessoa.name}, ${pessoa.email}, ${pessoa.telefone},${pessoa.birthDate}]');
     db.dispose();
+    return db.lastInsertRowId;
   }
 
   @override

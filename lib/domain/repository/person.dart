@@ -3,7 +3,7 @@ import 'package:pessoa_crud/domain/model/person.dart';
 
 abstract class RepositoryPerson{
 
-  Future<void> registerPerson(Person pessoa);
+  Future<int> registerPerson(Person pessoa);
 
   Future<People?> listPeople();
 
